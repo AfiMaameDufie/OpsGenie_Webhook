@@ -6,6 +6,11 @@ jobs:
   build_deploy:
     executor: gh-pages/default
     steps:
+      - run:
+          command: |
+            if [[ ${CIRCLE_SHELL_ENV} =~ "localbuild" ]]; then
+              mkdir -p /tmp
+            fi
       - checkout
       - gh-pages/deploy:
           setup-git: true
