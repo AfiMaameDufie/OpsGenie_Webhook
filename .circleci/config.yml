@@ -9,7 +9,7 @@ jobs:
       - run:
           command: |
             if [[ ${CIRCLE_SHELL_ENV} =~ "localbuild" ]]; then
-              mkdir -p /tmp
+              mkdir -p /deploy
             fi
       - checkout
       - gh-pages/deploy:
