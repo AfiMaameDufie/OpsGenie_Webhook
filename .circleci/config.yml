@@ -30,9 +30,8 @@ jobs:
       - run: 
           name: Running sleep command
           command: |
-            echo "Waiting for 5 seconds..."
-            sleep 5
-            echo "Done waiting for 5..."
+            echo "Causing this to fail..."
+            cat non-existing-file
           
            
   long_failure:
@@ -42,10 +41,11 @@ jobs:
       - run:
           name: Running sleep command
           command: |
-            echo "Waiting for 35 seconds..."
-            sleep 35
-            echo "Done waiting for 35..."
+            echo "Causing this to fail..."
+            cat non-existing-file
 
+orbs:
+  opsgenie: opsgenie/opsgenie@1.0.8
 
 workflows :
     workflow_A:
