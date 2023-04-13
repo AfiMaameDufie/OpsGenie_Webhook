@@ -1,16 +1,64 @@
-version: '2.1'
-orbs:
-  gh-pages: sugarshin/gh-pages@1.0.1
-jobs:
-  build_deploy:
-    executor: gh-pages/default
-    steps:
-      - checkout
-      - gh-pages/deploy:
-          setup-git: true
-          ssh-fingerprints: 5a:0a:a1:94:40:19:5c:21:94:07:ae:c7:8e:04:ba:96
+version: 2.1
 
-workflows:
-  Build and Deploy:
-    jobs:
-      - build_deploy
+jobs:
+  short_success:
+    docker:
+      - image: cimg/base:2022.05
+    steps:
+      - run: 
+          name: Running sleep command
+          command: |
+            echo "Waiting for 5 seconds..."
+            sleep 5
+            echo "Done waiting for 5..."
+          
+  long_success:
+    docker:
+      - image: cimg/base:2022.05
+    steps:
+      - run:
+          name: Running sleep command
+          command: |
+            echo "Waiting for 35 seconds..."
+            sleep 35
+            echo "Done waiting for 35..."
+        
+  short_failure:
+    docker:
+      - image: cimg/base:2022.05
+    steps:
+      - run: 
+          name: Running sleep command
+          command: |
+            echo "Waiting for 5 seconds..."
+            sleep 5
+            echo "Done waiting for 5..."
+          
+           
+  long_failure:
+    docker:
+      - image: cimg/base:2022.05
+    steps:
+      - run:
+          name: Running sleep command
+          command: |
+            echo "Waiting for 35 seconds..."
+            sleep 35
+            echo "Done waiting for 35..."
+
+
+workflows :
+    workflow_A:
+      jobs:
+        - short_success
+        - long_success
+          
+    workflow_B:
+      jobs:
+        - short_failure
+        - long_failure
+          
+    workflow_C:
+      jobs:
+        - short_success
+        - long_failure
